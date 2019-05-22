@@ -1,0 +1,25 @@
+{
+  "name": "happyfox",
+  "version": "1.0.0",
+  "description": "Happy fox contacts application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vinay Kumar",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.0",
+    "express-validator": "^5.3.1",
+    "helmet": "^3.18.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.5.10"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2"
+  }
+}
