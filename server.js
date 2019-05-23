@@ -2,6 +2,7 @@
 
 const dotEnv = require('dotenv').config();
 const mongoose = require('mongoose');
+const requireDir = require('require-dir');
 
 if (dotEnv.error) {
   console.log('.env file not found');
@@ -9,7 +10,6 @@ if (dotEnv.error) {
 }
 
 const Config = require('./config');
-const app = require('./app/app');
 
 async function checkDBConnection(mongodbUrl) {
   try {
@@ -31,7 +31,13 @@ Config.isValidEnv(dotEnv.parsed.NODE_ENV || 'local')
   })
   .then((message) => {
     console.log(message);
-    return app.listen(Config.port);
+    return requireDir('./app/models/');
+  })
+  .then((obj) => {
+    console.log(`Loaded models ${Object.keys(obj)}`);
+    const app = require('./app/app');
+    app.listen(Config.port);
+    return app;
   })
   .then((message) => {
     console.log(`API server successfully started at port ${Config.port}`);
