@@ -40,7 +40,8 @@ const schema = new Schema({
   },
   email: [emailSchema],
   phone: [phoneSchema],
-
+}, {
+  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 });
 
 mongoose.model('contact', schema);
