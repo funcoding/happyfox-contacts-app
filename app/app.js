@@ -16,5 +16,8 @@ app.get('/', (req, res) => {
 // Contacts
 app.use('/api', require('./routes/contacts'));
 
+// Group
+app.use('/api', require('./routes/group'));
+
 
 module.exports = app;
