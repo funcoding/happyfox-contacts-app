@@ -17,7 +17,7 @@ const emailSchema = new Schema({
     enum: ['work', 'personal'],
     required: true,
   },
-});
+}, { _id: false });
 
 const phoneSchema = new Schema({
   content: {
@@ -30,7 +30,7 @@ const phoneSchema = new Schema({
     enum: ['work', 'personal'],
     required: true,
   },
-});
+}, { _id: false });
 
 const schema = new Schema({
   name: {
