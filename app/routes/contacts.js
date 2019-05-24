@@ -18,7 +18,7 @@ function formValidator(req, res, next) {
 }
 
 route.get('/contacts/:id', ContactsController.show);
-route.put('/contacts/:id', ContactsController.update);
+route.put('/contacts/:id', [...validator.create, formValidator], ContactsController.update);
 route.delete('/contacts/:id', ContactsController.delete);
 route.get('/contacts', ContactsController.all);
 route.post('/contacts', [...validator.create, formValidator], ContactsController.store);

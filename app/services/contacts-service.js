@@ -7,7 +7,20 @@ const Contact = mongoose.model('contact');
 
 class ContactsService {
   static async all(params) {
-    return Contact.find({});
+    const { page = 1, limit = 10, search } = params;
+    const filter = {
+      $or: [
+        { name: new RegExp(search, 'i') },
+        { 'phone.content': new RegExp(search, 'i') },
+        { 'email.content': new RegExp(search, 'i') },
+      ],
+    };
+    const records = await Contact.find(filter)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .sort({ created_at: -1 });
+    const totalRecords = await Contact.countDocuments(filter);
+    return { meta: { page, limit, total: totalRecords }, records };
   }
 
   static async fetchById(id) {
@@ -19,8 +32,9 @@ class ContactsService {
     return { id: record.id };
   }
 
-  static async update(params) {
-        
+  static async update(id, params) {
+    const record = await Contact.findOneAndUpdate({ _id: id }, params);
+    return { id: record.id };
   }
 
   static async delete(id) {

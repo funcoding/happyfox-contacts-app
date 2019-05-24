@@ -30,7 +30,7 @@ class ContactsController {
 
   static async update(req, res, next) {
     try {
-      return res.json({ data: await ContactService.update(req.body) });
+      return res.json({ data: await ContactService.update(req.params.id, req.body) });
     } catch (e) {
       return next(e);
     }
