@@ -14,7 +14,8 @@ class ContactsController {
 
   static async show(req, res, next) {
     try {
-      return res.json({ data: await ContactService.fetchById(req.params.id) });
+      const data = await ContactService.fetchById(req.params.id);
+      return data ? res.json({ data }) : next();
     } catch (e) {
       return next(e);
     }
@@ -38,7 +39,8 @@ class ContactsController {
 
   static async delete(req, res, next) {
     try {
-      return res.status(204).json({ data: await ContactService.delete(req.params.id) });
+      const data = await ContactService.delete(req.params.id);
+      return data ? res.status(204).json({ data }) : next();
     } catch (e) {
       return next(e);
     }
