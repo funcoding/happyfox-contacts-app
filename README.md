@@ -7,7 +7,9 @@
 1. clone the repository
 2. cd into the directory
 3. run the command `npm install`
-4. run the command `npm start`
+4. copy or rename .env.sample to .env
+5. edit with necessary values of variables in .env file
+6. run the command `npm start`
 
 ### Running test
 Run the command `npm run test` 
