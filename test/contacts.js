@@ -201,15 +201,37 @@ describe('Creates new contact and search contact by wither name or email or phon
   });
 });
 
+describe('PUT /contacts/:id', function () {
+  it('Creates new contact and updates by id', async function () {
+    const contact = { name: 'John Doe', email: [{ content: 'johndoe@gmail.com', tag: 'work' }] };
+    let response = await request(app).post('/api/contacts')
+      .send(contact)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200);
+    const { id } = response.body.data;
+
+    const updatedContact = { name: 'John Doe', email: [{ content: 'johndoe@gmail.com', tag: 'personal' }] };
+    response = await request(app)
+      .put(`/api/contacts/${id}`)
+      .send(updatedContact)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200);
+    
+    response = await request(app)
+      .get(`/api/contacts/${id}`)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200);
+    assert(response.body.data.email[0].tag === updatedContact.email[0].tag, `Contact tag should be ${updatedContact.email[0].tag}`);
+  });
+});
 
 after(async function (done) {
-  try {
-    if (server) {
-      server.close();
-      mongoose.connection.close();
-    }
-    return done();
-  } catch (e) {
-    return done();
+  if (server) {
+    server.close();
+    mongoose.connection.close();
   }
+  return done();
 });
