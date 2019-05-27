@@ -11,3 +11,6 @@
 
 ### Running test
 Run the command `npm run test` 
+
+### Documentation
+http://localhost:port/api-docs/
