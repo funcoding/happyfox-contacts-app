@@ -16,7 +16,8 @@
     "helmet": "^3.18.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.5.10",
-    "require-dir": "^1.2.0"
+    "require-dir": "^1.2.0",
+    "swagger-ui-express": "^4.0.4"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

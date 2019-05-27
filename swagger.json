@@ -1,0 +1,519 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "HappyFox contacts api"
+  },
+  "host": "localhost:3002",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "contacts"
+    },
+    {
+      "name": "group"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/contacts": {
+      "post": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Create contact",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Create new contact",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "tag": {
+                        "type": "string",
+                        "enum": [
+                          "work",
+                          "personal"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "email": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "tag": {
+                        "type": "string",
+                        "enum": [
+                          "personal",
+                          "work"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "integer",
+                      "description": "mongodb id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Form errors",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "List all contacts",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "optional",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "optional",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "search",
+            "type": "string",
+            "description": "optional",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}": {
+      "put": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Updates existing contact",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "contactId",
+            "type": "string",
+            "description": "MongoId",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Create new contact",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "tag": {
+                        "type": "string",
+                        "enum": [
+                          "work",
+                          "personal"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "email": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "tag": {
+                        "type": "string",
+                        "enum": [
+                          "personal",
+                          "work"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "integer",
+                      "description": "mongodb id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Form errors",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "List specific contact",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "contactId",
+            "type": "string",
+            "description": "MongoId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Delete specific contact",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "contactId",
+            "type": "string",
+            "description": "MongoId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    },
+    "/group": {
+      "post": {
+        "tags": [
+          "group"
+        ],
+        "summary": "Create group",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Create new group",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "contacts": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Contact id"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "mongodb id"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Form errors",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "group"
+        ],
+        "summary": "List all group",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "type": "integer",
+            "description": "optional",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "description": "optional",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "search",
+            "type": "string",
+            "description": "optional",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/group/{groupId}": {
+      "put": {
+        "tags": [
+          "group"
+        ],
+        "summary": "Updates existing group",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "groupId",
+            "type": "string",
+            "description": "MongoId",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updates group",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "contacts": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "Contact id"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "mongodb id"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Form errors",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "group"
+        ],
+        "summary": "List specific group",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "groupId",
+            "type": "string",
+            "description": "MongoId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "group"
+        ],
+        "summary": "Delete specific group",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "groupId",
+            "type": "string",
+            "description": "MongoId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    }
+  }
+}
