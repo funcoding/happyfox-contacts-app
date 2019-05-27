@@ -20,6 +20,7 @@ class Config {
     this.secure = data.SECURE;
     this.mongodbUrl = data.MONGODB_URL;
     this.secret = data.MY_SECRET;
+    this.env = data.NODE_ENV;
     this.basePath = __dirname;
     return Promise.resolve('Config parameters set.');
   }
