@@ -43,7 +43,7 @@ describe('POST /contacts', function () {
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
-        assert(Object.keys(response.body.data).includes('id'), 'Returns new resource id');
+        assert(Object.keys(response.body.data).includes('_id'), 'Returns new resource id');
       });
   });
 
@@ -55,7 +55,7 @@ describe('POST /contacts', function () {
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
-        assert(Object.keys(response.body.data).includes('id'), 'Returns new resource id');
+        assert(Object.keys(response.body.data).includes('_id'), 'Returns new resource id');
       });
   });
 
@@ -104,7 +104,7 @@ describe('GET /contacts/:id', function () {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200);
-    const { id } = response.body.data;
+    const id = response.body.data._id;
     response = await request(app)
       .get(`/api/contacts/${id}`)
       .set('Accept', 'application/json')
@@ -138,7 +138,7 @@ describe('DELETE /contacts/:id', function () {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200);
-    const { id } = response.body.data;
+    const id  = response.body.data._id;
     return request(app)
       .delete(`/api/contacts/${id}`)
       .set('Accept', 'application/json')
@@ -209,7 +209,7 @@ describe('PUT /contacts/:id', function () {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200);
-    const { id } = response.body.data;
+    const id = response.body.data._id;
 
     const updatedContact = { name: 'John Doe', email: [{ content: 'johndoe@gmail.com', tag: 'personal' }] };
     response = await request(app)
