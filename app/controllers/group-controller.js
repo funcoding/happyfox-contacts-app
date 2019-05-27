@@ -14,7 +14,8 @@ class GroupController {
 
   static async show(req, res, next) {
     try {
-      return res.json({ data: await GroupService.fetchById(req.params.id) });
+      const data = await GroupService.fetchById(req.params.id);
+      return data ? res.json({ data }) : next();
     } catch (e) {
       return next(e);
     }
@@ -38,7 +39,8 @@ class GroupController {
 
   static async delete(req, res, next) {
     try {
-      return res.status(204).json({ data: await GroupService.delete(req.params.id) });
+      const data = await GroupService.delete(req.params.id);
+      return data ? res.status(204).json({ data }) : next();
     } catch (e) {
       return next(e);
     }
