@@ -7,7 +7,9 @@ const Contact = mongoose.model('contact');
 
 class ContactsService {
   static async all(params) {
-    const { page = 1, limit = 10, search } = params;
+    let { page = 1, limit = 10, search = ''} = params;
+    page = parseInt(page);
+    limit = parseInt(limit);
     const filter = {
       $or: [
         { name: new RegExp(search, 'i') },
@@ -29,16 +31,21 @@ class ContactsService {
 
   static async store(params) {
     const record = await new Contact(params).save();
-    return { id: record.id };
+    return { _id: record._id };
   }
 
   static async update(id, params) {
     const record = await Contact.findOneAndUpdate({ _id: id }, params);
-    return { id: record.id };
+    return { _id: record._id };
   }
 
   static async delete(id) {
     return Contact.findOneAndRemove({ _id: id });
+  }
+
+  static async validateByids(ids) {
+    const records = await Contact.find({ _id: { $in: ids } });
+    return records.map(item => item._id);
   }
 }
 

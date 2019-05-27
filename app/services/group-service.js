@@ -7,7 +7,9 @@ const Group = mongoose.model('group');
 
 class GroupService {
   static async all(params) {
-    const { page = 1, limit = 10, search } = params;
+    let { page = 1, limit = 10, search = ''} = params;
+    page = parseInt(page);
+    limit = parseInt(limit);
     const filter = {};
     if (search) {
       filter.name = new RegExp(search, 'i');
@@ -27,12 +29,12 @@ class GroupService {
 
   static async store(params) {
     const record = await new Group(params).save();
-    return { id: record.id };
+    return { _id: record._id };
   }
 
   static async update(id, params) {
     const record = await Group.findOneAndUpdate({ _id: id }, params);
-    return { id: record.id };
+    return { _id: record._id };
   }
 
   static async delete(id) {
